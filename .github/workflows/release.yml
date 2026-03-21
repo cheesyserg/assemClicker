@@ -28,7 +28,7 @@ jobs:
         shell: pwsh
         run: |
           # Create version string using build number
-          $version = "v0.1.${{ github.run_number }}"
+          $version = "v0.0.${{ github.run_number }}"
           # Replace placeholder in the resource file
           (Get-Content gui.rc) -replace 'APP_VERSION_TOKEN', $version | Set-Content gui.rc
           echo "Building version: $version"
