@@ -112,6 +112,7 @@ GetRandomInterval PROTO :DWORD, :DWORD
     isRunning  dd 0
     currentHotKeyCode dd 75h 
     waitingForKey     dd 0    
+    isClicking    DWORD ?
     hInstance  dd 0
     hMainWnd   dd 0
     hHotkeyDlg dd 0
@@ -348,11 +349,15 @@ DlgProc proc hWnd:DWORD, uMsg:DWORD, wParam:DWORD, lParam:DWORD
             invoke StopClicking, hWnd
         .endif
     .elseif uMsg == 0312h
-        .if isRunning == 1
-            invoke StopClicking, hWnd
-        .else
-            invoke StartClicking, hWnd
-        .endif
+    .if isClicking == 1
+        mov isClicking, 0      ; Set state to stopped
+        invoke StopClicking, hWnd
+    .else
+        mov isClicking, 1      ; Set state to started
+        invoke StartClicking, hWnd
+    .endif
+    ; Add this line to refresh the button states (Enabled/Disabled)
+    invoke UpdateMainButtons, hWnd
     .elseif uMsg == 0113h
         .if wParam == 1
             invoke SendDlgItemMessageA, hWnd, 1012, 00F0h, 0, 0
