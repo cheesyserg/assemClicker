@@ -1,0 +1,93 @@
+#define DS_MODALFRAME 0x80
+#define DS_CENTER 0x0800
+#define WS_SYSMENU 0x00080000
+#define WS_CAPTION 0x00C00000
+#define WS_VISIBLE 0x10000000
+#define WS_DISABLED 0x08000000
+#define WS_TABSTOP 0x00010000
+#define WS_GROUP 0x00020000
+#define ES_NUMBER 0x2000
+#define ES_AUTOHSCROLL 0x0080
+#define ES_CENTER 0x0001
+#define ES_READONLY 0x0800
+#define CBS_DROPDOWNLIST 0x0003
+#define BS_GROUPBOX 0x0007
+#define BS_AUTORADIOBUTTON 0x0009
+#define BS_AUTOCHECKBOX 0x0003
+#define SS_CENTER 0x01
+
+// Add this at the top or bottom of gui.rc
+200 ICON "app_icon.ico" 
+
+// 100: Main Auto Clicker Dialog
+100 DIALOGEX 0, 0, 320, 220
+STYLE DS_CENTER | WS_CAPTION | WS_SYSMENU | WS_VISIBLE
+CAPTION "OP Assem Auto Clicker 0.1"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Click interval", -1, 5, 5, 310, 50
+    EDITTEXT        1001, 15, 20, 35, 12, ES_NUMBER
+    LTEXT           "hours", -1, 55, 22, 20, 10
+    EDITTEXT        1002, 80, 20, 35, 12, ES_NUMBER
+    LTEXT           "mins", -1, 120, 22, 20, 10
+    EDITTEXT        1003, 145, 20, 35, 12, ES_NUMBER
+    LTEXT           "secs", -1, 185, 22, 20, 10
+    EDITTEXT        1004, 210, 20, 45, 12, ES_NUMBER
+    LTEXT           "milliseconds", -1, 260, 22, 45, 10
+    
+    PUSHBUTTON      "?", 1005, 15, 35, 15, 12
+    AUTOCHECKBOX    "Random offset + -", 1006, 35, 36, 75, 10
+    EDITTEXT        1007, 115, 35, 45, 12, ES_NUMBER
+    LTEXT           "milliseconds", -1, 165, 37, 45, 10
+
+    GROUPBOX        "Click options", -1, 5, 60, 150, 50
+    LTEXT           "Mouse button:", -1, 15, 75, 50, 10
+    COMBOBOX        1008, 70, 73, 75, 50, CBS_DROPDOWNLIST | WS_TABSTOP
+    LTEXT           "Click type:", -1, 15, 93, 50, 10
+    COMBOBOX        1009, 70, 91, 75, 50, CBS_DROPDOWNLIST | WS_TABSTOP
+
+    GROUPBOX        "Click repeat", -1, 165, 60, 150, 50
+    AUTORADIOBUTTON "Repeat", 1010, 175, 75, 40, 10, WS_GROUP
+    AUTORADIOBUTTON "Repeat until stopped", 1012, 175, 93, 90, 10
+    EDITTEXT        1011, 220, 73, 40, 12, ES_NUMBER
+    LTEXT           "times", -1, 265, 75, 20, 10
+
+    GROUPBOX        "Cursor position", -1, 5, 115, 310, 40
+    AUTORADIOBUTTON "Current location", 1013, 15, 130, 70, 10, WS_GROUP
+    AUTORADIOBUTTON "", 1014, 115, 130, 10, 10
+    PUSHBUTTON      "Pick location", 1015, 130, 128, 60, 14
+    LTEXT           "X", -1, 200, 130, 10, 10
+    EDITTEXT        1016, 210, 128, 35, 12, ES_NUMBER
+    LTEXT           "Y", -1, 255, 130, 10, 10
+    EDITTEXT        1017, 265, 128, 35, 12, ES_NUMBER
+
+    PUSHBUTTON      "Start (F6)", 1018, 5, 165, 150, 20
+    PUSHBUTTON      "Stop (F6)", 1019, 165, 165, 150, 20, WS_DISABLED
+    PUSHBUTTON      "Hotkey setting", 1020, 5, 190, 150, 20
+    PUSHBUTTON      "About && Credits", 1021, 165, 190, 150, 20
+END
+
+// 200: Hotkey Setting
+200 DIALOGEX 0, 0, 180, 80
+STYLE DS_MODALFRAME | WS_CAPTION | WS_SYSMENU | WS_VISIBLE | DS_CENTER
+CAPTION "Hotkey Setting"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "Start / Stop", 2001, 10, 13, 60, 14
+    EDITTEXT        2002, 75, 13, 80, 14, ES_CENTER | ES_READONLY | WS_DISABLED
+    DEFPUSHBUTTON   "Ok", 1, 30, 50, 50, 14
+    PUSHBUTTON      "Cancel", 2, 100, 50, 50, 14
+END
+
+// 300: About & Credits
+300 DIALOGEX 0, 0, 160, 100
+STYLE DS_MODALFRAME | WS_CAPTION | WS_SYSMENU | WS_VISIBLE | DS_CENTER
+CAPTION "About OP Auto Clicker"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CTEXT           "OP Assem Auto Clicker 0.1", -1, 10, 15, 140, 10
+    CTEXT           "Built with Assembly", -1, 10, 30, 140, 10
+    CTEXT           "Credits: KDRN", -1, 10, 45, 140, 10
+    DEFPUSHBUTTON   "Close", 1, 55, 70, 50, 14
+END
+
