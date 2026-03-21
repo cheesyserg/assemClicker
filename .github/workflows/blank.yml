@@ -34,7 +34,7 @@ jobs:
         shell: bash
         run: |
           # Creates a unique tag using the build number
-          TAG_NAME="v0.1.${{ github.run_number }}"
+          TAG_NAME="v0.0.${{ github.run_number }}"
           git tag $TAG_NAME
           git push origin $TAG_NAME
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
