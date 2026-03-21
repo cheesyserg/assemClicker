@@ -1,0 +1,50 @@
+name: Auto Build and Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+
+      - name: Inject Version Number
+        shell: pwsh
+        run: |
+          # Create version string using build number
+          $version = "v0.1.${{ github.run_number }}"
+          # Replace placeholder in the resource file
+          (Get-Content gui.rc) -replace 'APP_VERSION_TOKEN', $version | Set-Content gui.rc
+          echo "Building version: $version"
+          echo "APP_VERSION=$version" >> $env:GITHUB_ENV
+
+      - name: Run Build Script
+        shell: cmd
+        run: |
+          if not exist app_icon.ico echo. > app_icon.ico
+          call build.bat
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: clicker.exe
+          tag_name: ${{ env.APP_VERSION }}
+          name: Release ${{ env.APP_VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
