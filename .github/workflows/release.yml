@@ -1,4 +1,4 @@
-name: Auto Build and Release
+name: Build and Release
 
 on:
   workflow_dispatch:
@@ -39,10 +39,6 @@ jobs:
         run: |
           if not exist app_icon.ico echo. > app_icon.ico
           call build.bat
-
-      - name: Compress with UPX
-        shell: cmd
-        run: upx --best clicker.exe
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
