@@ -21,8 +21,8 @@ jobs:
         with:
           arch: x86
 
-      - name: Install UPX
-        run: choco install upx --no-progress
+     # - name: Install UPX
+     #   run: choco install upx --no-progress
 
       - name: Inject Version Number
         shell: pwsh
