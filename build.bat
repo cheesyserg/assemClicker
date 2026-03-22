@@ -14,7 +14,6 @@ link /SUBSYSTEM:WINDOWS /ENTRY:start ^
      /NODEFAULTLIB /FIXED /MANIFEST:NO ^
      /OPT:REF /OPT:ICF ^
      /IGNORE:4108 ^
-     clicker.obj gui.res user32.lib kernel32.lib 
+     clicker.obj gui.res user32.lib kernel32.lib Winmm.lib 
 
 echo Build Successful! 
-pause
